@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
-const stripe = require("stripe")("sk_test_51KlTVCSEe80oi2Y60SrHbsyYEvSz8E6dwEqA62Li48HlEvfBlT2fCC2Cslm7TIpqo1yfvFYk6qGDR8bbAH0oUaZ900AReO0qh8")
-const uuid = require("uuid")
+
 // var authorise = require("./Module/authModule");
 var registerRouter = require("./routes/reg");
 var mongo=require('./connection')
@@ -16,7 +15,7 @@ var matchRouter = require('./routes/matchday');
 var chickenbucketRouter =require('./routes/chickenbucket')
 var briyanibucketRouter = require('./routes/briyanibucket')
 var cors = require('cors')
-
+require("dotenv").config();
 mongo.connect()
 var app = express();
 
@@ -29,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-  
+
 app.use(cors())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
