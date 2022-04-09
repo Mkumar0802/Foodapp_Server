@@ -47,6 +47,8 @@ app.get('/', function (req, res) {
   res.send('Api running');
 })
 
+console.log(process.env.Port)
+console.log(process.env.MONGODB_URL)
 
 // error handler
 app.use(function(err, req, res, next) {
