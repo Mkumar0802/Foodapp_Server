@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var matchRouter = require('./routes/matchday');
 var chickenbucketRouter =require('./routes/chickenbucket')
-var briyanibucketRouter = require('./routes/briyanibucket')
+// var briyanibucketRouter = require('./routes/briyanibucket')
 var cors = require('cors')
 require("dotenv").config();
 mongo.connect()
@@ -35,7 +35,7 @@ app.use('/users', usersRouter);
 app.use("/auth",registerRouter)
 app.use('/matchday',matchRouter)
 app.use('/chickenbucket',chickenbucketRouter)
-app.use('/briyanibucket',briyanibucketRouter)
+// app.use('/briyanibucket',briyanibucketRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
