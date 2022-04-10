@@ -40,8 +40,8 @@ exports.getbriyanibucket = async (req,res,next)=>{
  
 
 exports.updatebriyanibucket = async (req,res,next)=>{
-    const {chickenId} = req.params;   // object destructure
-    const response = await Briyanibucket.findByIdAndUpdate(chickenId,{
+    const {briyaniId} = req.params;   // object destructure
+    const response = await Briyanibucket.findByIdAndUpdate(briyaniId,{
         name: req.body.name,
         photo: req.body.photo,
         price: req.body.price,
@@ -52,7 +52,7 @@ exports.updatebriyanibucket = async (req,res,next)=>{
 
 
 exports.deletebriyanibucket = async (req,res,next)=>{  
-    const {chickenId} = req.params;   // object destructure
-    const response = await Briyanibucket.findByIdAndRemove(chickenId)
+    const {briyaniId} = req.params;   // object destructure
+    const response = await Briyanibucket.findByIdAndRemove(briyaniId)
     res.send(response);
 }
