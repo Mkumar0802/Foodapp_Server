@@ -22,5 +22,5 @@ const briyanibucketSchema = new Schema({
     }
 })
 
-const Briyanibucket =mongoose.model('briyanibucket', briyanibucketSchema,'briyanibucketCollection');
+const Briyanibucket =mongoose.model('briyanibucket',briyanibucketSchema ,'briyanibucketCollection');
 module.exports = Briyanibucket;
