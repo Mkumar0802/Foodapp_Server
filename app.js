@@ -6,7 +6,7 @@ var logger = require('morgan');
 var app = express();
 
 // var authorise = require("./Module/authModule");
-var registerRouter = require("./routes/reg");
+var registerRouter = require("./routes/authRoutes");
 var mongo=require('./connection')
 
 var indexRouter = require('./routes/index');
@@ -14,6 +14,9 @@ var usersRouter = require('./routes/users');
 var matchRouter = require('./routes/matchday');
 var chickenbucketRouter =require('./routes/chickenbucket')
 var briyanibucketRouter = require('./routes/briyanibucket')
+var authRoutes = require("./routes/authRoutes")
+var paymentRouter= require ("./routes/Payment")
+
 var cors = require('cors')
 require("dotenv").config();
 mongo.connect()
@@ -30,12 +33,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors())
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/auth",registerRouter)
 app.use('/matchday',matchRouter)
 app.use('/chickenbucket',chickenbucketRouter)
 app.use('/briyanibucket',briyanibucketRouter)
+app.use("/", authRoutes)
+app.use('/payment',paymentRouter)
+app.use('/api/user/', require('./routes/authRoutes'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,7 +50,7 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/', function (req, res) {
+app.get('/welcome', function (req, res) {
   res.send('Api running');
 })
 
