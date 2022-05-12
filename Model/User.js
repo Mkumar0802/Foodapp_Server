@@ -1,33 +1,51 @@
-const mongoose = require('mongoose');
+const mongoose = require ('mongoose');
+const bcrypt =  require ('bcryptjs');
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    role: {
+      // Role of user it will be (normal or admin )
+      type: Number,
+      default: 0,
+    },
+   
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true, // Unique email for each user
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  avatar: {
-    // User Image
-    type: String,
-  },
-  role: {
-    // Role of user it will be (normal or admin )
-    type: Number,
-    default: 0,
-  },
-  history: {
-    // order history
-    type: Array,
-    default: [],
-  },
+  {
+    timestamps: true,
+  }
+);
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// will encrypt password everytime its saved
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
-module.exports = User = mongoose.model('User', UserSchema )
+const User = mongoose.model("User", userSchema);
+
+module.exports= User;

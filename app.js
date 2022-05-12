@@ -5,8 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
 
-// var authorise = require("./Module/authModule");
-var registerRouter = require("./routes/authRoutes");
+
 var mongo=require('./connection')
 
 var indexRouter = require('./routes/index');
@@ -14,7 +13,7 @@ var usersRouter = require('./routes/users');
 var matchRouter = require('./routes/matchday');
 var chickenbucketRouter =require('./routes/chickenbucket')
 var briyanibucketRouter = require('./routes/briyanibucket')
-var authRoutes = require("./routes/authRoutes")
+var userRoutes = require("./routes/userRoutes")
 var paymentRouter= require ("./routes/Payment")
 
 var cors = require('cors')
@@ -35,13 +34,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/auth",registerRouter)
+// app.use("/auth",registerRouter)
 app.use('/matchday',matchRouter)
 app.use('/chickenbucket',chickenbucketRouter)
 app.use('/briyanibucket',briyanibucketRouter)
-app.use("/", authRoutes)
+// app.use("/", authRoutes)
 app.use('/payment',paymentRouter)
-app.use('/api/user/', require('./routes/authRoutes'));
+app.use("/users", userRoutes);
 
 
 // catch 404 and forward to error handler
